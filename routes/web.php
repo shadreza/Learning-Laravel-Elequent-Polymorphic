@@ -105,3 +105,22 @@ Route::get('delete-prd-photo/{prd_id}', function ($prd_id) {
     $photo = $prd->photos()->whereId($pht->id)->first();
     $photo->delete();
 });
+
+
+
+
+/*
+|--------------------------------------------------------------------------
+| Extra Features
+|--------------------------------------------------------------------------
+*/
+
+
+// assign
+// suppose we have a photo but not assigned to anyone
+// so if we want to assign it to some one we can do that here
+Route::get('assign-prd-photo/{prd_id}/{photo_id}', function ($prd_id, $photo_id) {
+    $prd = Product::findOrFail($prd_id);
+    $photo = Photo::findOrFail($photo_id);
+    $prd->photos()->save($photo);
+});
