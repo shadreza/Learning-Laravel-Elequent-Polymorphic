@@ -124,3 +124,10 @@ Route::get('assign-prd-photo/{prd_id}/{photo_id}', function ($prd_id, $photo_id)
     $photo = Photo::findOrFail($photo_id);
     $prd->photos()->save($photo);
 });
+
+
+// unassign
+Route::get('unassign-prd-photo/{prd_id}/{photo_id}', function ($prd_id, $photo_id) {
+    $prd = Product::findOrFail($prd_id);
+    $prd->photos()->whereId($photo_id)->update(['imageable_id'=>0, 'imageable_type'=>'']);
+});
