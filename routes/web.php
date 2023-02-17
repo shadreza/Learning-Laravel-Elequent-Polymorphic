@@ -40,3 +40,20 @@ Route::get('create-product-photo/{prd_id}', function ($prd_id) {
     $prd = Product::findOrFail($prd_id);
     $prd->photos()->create(["path" => "image-" . $prd_id . ".jpg"]);
 });
+
+
+// read
+// read a photo for staff/product
+Route::get('read-staff-photo/{staff_id}', function ($staff_id) {
+    $staff = Staff::findOrFail($staff_id);
+    foreach ($staff->photos as $photo) {
+        echo $photo->path;
+    }
+});
+
+Route::get('read-product-photo/{prd_id}', function ($prd_id) {
+    $prd = Product::findOrFail($prd_id);
+    foreach ($prd->photos as $photo) {
+        echo $photo->path;
+    }
+});
