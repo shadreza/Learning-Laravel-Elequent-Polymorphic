@@ -57,3 +57,28 @@ Route::get('read-product-photo/{prd_id}', function ($prd_id) {
         echo $photo->path;
     }
 });
+
+
+// update
+// update a photo for staff/product
+Route::get('update-staff-photo/{staff_id}', function ($staff_id) {
+    $staff = Staff::findOrFail($staff_id);
+    $pht = Photo::where([
+        ['imageable_id', $staff_id],
+        ['imageable_type', 'App\Models\Staff']
+    ])->first();
+    $photo = $staff->photos()->whereId($pht->id)->first();
+    $photo->path = 'staff' . $photo->path;
+    $photo->save();
+});
+
+Route::get('update-prd-photo/{prd_id}', function ($prd_id) {
+    $prd = Product::findOrFail($prd_id);
+    $pht = Photo::where([
+        ['imageable_id', $prd_id],
+        ['imageable_type', 'App\Models\Product']
+    ])->first();
+    $photo = $prd->photos()->whereId($pht->id)->first();
+    $photo->path = 'product' . $photo->path;
+    $photo->save();
+});
